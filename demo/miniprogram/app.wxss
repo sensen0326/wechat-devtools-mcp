@@ -1,0 +1,21 @@
+.page {
+  padding: 24rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.input {
+  margin-top: 24rpx;
+  padding: 16rpx;
+  border: 1px solid #d9d9d9;
+  border-radius: 12rpx;
+}
+
+.button {
+  margin-top: 24rpx;
+  background: #07c160;
+  color: #ffffff;
+}

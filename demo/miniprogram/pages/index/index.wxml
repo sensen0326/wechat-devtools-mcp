@@ -1,0 +1,5 @@
+<view class="page">
+  <view class="title">{{title}}</view>
+  <input class="input" value="{{value}}" bindinput="handleInput" placeholder="Type here" />
+  <button class="button" bindtap="handleTap">Tap count: {{taps}}</button>
+</view>
