@@ -1,10 +1,10 @@
 # wechat-devtools-mcp
 
+Language: [English](./README.md) | [中文](./README.zh-CN.md)
+
 Reusable MCP server for WeChat DevTools mini program automation and testing.
 
 `wechat-devtools-mcp` wraps `miniprogram-automator` behind a stable MCP tool surface so Codex and other MCP clients can drive WeChat DevTools directly over stdio. The npm package is published as `@sensen0326/wechat-devtools-mcp`.
-
-Chinese documentation: [README.zh-CN.md](./README.zh-CN.md).
 
 ## Features
 

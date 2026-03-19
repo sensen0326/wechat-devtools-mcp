@@ -1,5 +1,7 @@
 # wechat-devtools-mcp
 
+Language: [English](./README.md) | [中文](./README.zh-CN.md)
+
 一个可复用、可开源的微信开发者工具 MCP Server，用于连接微信开发者工具并执行小程序自动化调试与测试。
 
 `wechat-devtools-mcp` 用 `miniprogram-automator` 作为底层能力，把它包装成稳定的 MCP 工具面，便于 Codex 和其他 MCP 客户端直接调用。npm 包名为 `@sensen0326/wechat-devtools-mcp`。
