@@ -2,14 +2,15 @@
 
 Reusable MCP server for WeChat DevTools mini program automation and testing.
 
-`wechat-devtools-mcp` wraps `miniprogram-automator` behind a stable MCP tool surface so Codex and other MCP clients can drive WeChat DevTools directly over stdio.
+`wechat-devtools-mcp` wraps `miniprogram-automator` behind a stable MCP tool surface so Codex and other MCP clients can drive WeChat DevTools directly over stdio. The npm package is published as `@sensen0326/wechat-devtools-mcp`.
 
-中文说明见 [README.zh-CN.md](./README.zh-CN.md).
+Chinese documentation: [README.zh-CN.md](./README.zh-CN.md).
 
 ## Features
 
 - Full `weapp_dev`-compatible tool surface for connection, page, and element automation.
 - Session reuse within a single MCP server process.
+- Explicit `sessionId` support, session listing, targeted close, and idle cleanup.
 - `launch` and `connect` workflows.
 - Windows-first support with macOS path hooks left open for follow-up.
 - Mock-tested MCP integration plus a local demo mini program.
@@ -17,18 +18,20 @@ Reusable MCP server for WeChat DevTools mini program automation and testing.
 ## Installation
 
 ```bash
-npm install -g wechat-devtools-mcp
+npm install -g @sensen0326/wechat-devtools-mcp@latest
 ```
 
 Or run it on demand:
 
 ```bash
-npx wechat-devtools-mcp
+npx -y @sensen0326/wechat-devtools-mcp@latest
 ```
 
 ## Tool Surface
 
 - `mp_ensureConnection`
+- `mp_listSessions`
+- `mp_closeSession`
 - `mp_navigate`
 - `mp_currentPage`
 - `mp_getLogs`
@@ -66,6 +69,7 @@ All tools accept an optional `connection` object with these fields:
 - `mode`
 - `port`
 - `projectPath`
+- `sessionId`
 - `ticket`
 - `timeout`
 - `trustProject`
@@ -77,9 +81,11 @@ All tools accept an optional `connection` object with these fields:
 - `connect`: connect to an already-open WeChat DevTools instance with automation enabled.
 - `launch`: open WeChat DevTools through the CLI for a given project.
 
+When `sessionId` is present, the server reuses that session directly. Idle sessions are reclaimed after 15 minutes by default. Set `WEAPP_MCP_SESSION_IDLE_TIMEOUT_MS=0` to disable idle cleanup.
+
 ## Example
 
-Example MCP call:
+Create a named session:
 
 ```json
 {
@@ -88,25 +94,34 @@ Example MCP call:
     "connection": {
       "mode": "launch",
       "projectPath": "D:/code/wechat-devtools-mcp/demo/miniprogram",
+      "sessionId": "demo-session",
       "trustProject": true
     }
   }
 }
 ```
 
-Example follow-up call:
+Reuse that session:
 
 ```json
 {
   "name": "page_getElement",
   "arguments": {
     "connection": {
-      "mode": "launch",
-      "projectPath": "D:/code/wechat-devtools-mcp/demo/miniprogram"
+      "sessionId": "demo-session"
     },
     "selector": ".button",
     "withWxml": true
   }
+}
+```
+
+List sessions:
+
+```json
+{
+  "name": "mp_listSessions",
+  "arguments": {}
 }
 ```
 
@@ -124,6 +139,18 @@ npm run build
 ```
 
 To smoke test against the bundled demo project, open [demo/miniprogram](./demo/miniprogram) in WeChat DevTools and use `projectPath` with `mp_ensureConnection`.
+
+You can also run the local smoke script:
+
+```bash
+npm run smoke:demo -- --inputValue hello --inspectSelector .button --screenshotPath .tmp/smoke.png
+```
+
+Or connect to an existing DevTools instance:
+
+```bash
+npm run smoke -- --wsEndpoint ws://127.0.0.1:9420 --inspectSelector .button
+```
 
 ## Testing
 

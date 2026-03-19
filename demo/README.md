@@ -6,4 +6,4 @@ Suggested workflow:
 
 1. Open `demo/miniprogram` in WeChat DevTools.
 2. Enable automation for the project window.
-3. Point `wechat-devtools-mcp` at the demo via `projectPath`.
+3. Point `@sensen0326/wechat-devtools-mcp` at the demo via `projectPath`.

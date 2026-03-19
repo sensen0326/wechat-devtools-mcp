@@ -20,6 +20,6 @@ async function main() {
 
 main().catch((error) => {
   const normalized = asError(error);
-  process.stderr.write(`wechat-devtools-mcp failed to start: ${normalized.message}\n`);
+  process.stderr.write(`@sensen0326/wechat-devtools-mcp failed to start: ${normalized.message}\n`);
   process.exit(1);
 });

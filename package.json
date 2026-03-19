@@ -1,13 +1,25 @@
 {
-  "name": "wechat-devtools-mcp",
+  "name": "@sensen0326/wechat-devtools-mcp",
   "version": "0.1.0",
   "description": "Reusable MCP server for WeChat DevTools mini program automation and testing.",
+  "author": "xzs <xuzhisen0326@163.com>",
   "license": "MIT",
+  "homepage": "https://github.com/sensen0326/wechat-devtools-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/sensen0326/wechat-devtools-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sensen0326/wechat-devtools-mcp.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "wechat-devtools-mcp": "./dist/cli.js"
+    "wechat-devtools-mcp": "dist/cli.js"
   },
   "exports": {
     ".": {
@@ -25,6 +37,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc --noEmit -p tsconfig.json",
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:demo": "node scripts/smoke.mjs --projectPath demo/miniprogram --trustProject --inputSelector .input --tapSelector .button",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepack": "npm run build && npm test"
